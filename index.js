@@ -7,7 +7,8 @@ let {
   ACCESS_READ, ACCESS_WRITE, ACCESS_READWRITE
 } = dbus.interface;
 
-let bus = dbus.sessionBus();
+// let bus = dbus.sessionBus();
+let bus = dbus.systemBus();
 
 class ExampleInterface extends Interface {
   @property({signature: 's', access: ACCESS_READWRITE})
@@ -76,7 +77,7 @@ class ExampleInterface2 extends Interface {
 }
 
 let example = new ExampleInterface('org.test.iface');
-let example2 = new ExampleInterface2('org.test.iface2');
+// let example2 = new ExampleInterface2('org.test.iface2');
 
 setTimeout(() => {
   // emit the HelloWorld signal
@@ -86,7 +87,7 @@ setTimeout(() => {
 async function main() {
   await bus.requestName('org.test.name');
   bus.export('/org/test/path', example);
-  bus.export('/org/test/path', example2);
+  // bus.export('/org/test/path', example2);
 }
 
 main().catch((err) => {
